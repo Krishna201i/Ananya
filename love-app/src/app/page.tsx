@@ -14,6 +14,7 @@ import PromisesSection from "@/components/PromisesSection";
 import FinaleSection from "@/components/FinaleSection";
 import MemoryVaultModal from "@/components/MemoryVaultModal";
 import UploadModal from "@/components/UploadModal";
+import AudioPlayer from "@/components/AudioPlayer";
 import { LOCAL_PHOTOS, getPhotoUrl } from "@/data/photos";
 
 export default function Home() {
@@ -108,6 +109,7 @@ export default function Home() {
       <Preloader onComplete={() => setPreloaderDone(true)} />
       <CustomCursor />
       <CanvasBackground />
+      <AudioPlayer autoPlayTrigger={preloaderDone} />
 
       <div id="flash-overlay" className="fixed inset-0 bg-white opacity-0 pointer-events-none z-[99990] transition-opacity duration-100" />
 

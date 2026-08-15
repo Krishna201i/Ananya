@@ -60,11 +60,7 @@
       line-height: 1.6;
     }
 
-    ::selection {
-      background: var(--rose-blush);
-      color: #fff;
-    }
-
+    ::selection { background: var(--rose-blush); color: #fff; }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--night-1); }
     ::-webkit-scrollbar-thumb { background: var(--rose-blush); border-radius: 4px; }
@@ -154,6 +150,32 @@
     }
 
     /* ==========================================================================
+       FLOATING AUDIO MUSIC PLAYER
+       ========================================================================== */
+    .music-player-bar {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99980; background: rgba(42, 15, 46, 0.9); border: 1px solid var(--gold-primary); backdrop-filter: blur(16px); padding: 0.6rem 1.2rem; border-radius: 50px; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 10px 30px rgba(42, 15, 46, 0.8), 0 0 20px rgba(240, 166, 60, 0.35); transition: all 0.3s ease;
+    }
+
+    .music-player-bar:hover { border-color: var(--rose-blush); }
+
+    .disc-spin {
+      width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-primary), var(--rose-blush)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; box-shadow: 0 0 10px var(--gold-primary); animation: spinDisc 4s linear infinite; animation-play-state: paused;
+    }
+
+    .disc-spin.playing { animation-play-state: running; }
+
+    @keyframes spinDisc { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .music-info { display: flex; flex-direction: column; text-align: left; max-width: 160px; }
+    .music-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-soft); font-weight: 600; }
+    .music-title { font-family: var(--font-serif); font-style: italic; font-size: 0.85rem; color: var(--paper); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .music-toggle-btn {
+      width: 34px; height: 34px; border-radius: 50%; background: var(--rose-blush); border: none; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 0 10px rgba(201, 83, 111, 0.6);
+    }
+    .music-toggle-btn:hover { background: var(--blush-pink); transform: scale(1.08); }
+
+    /* ==========================================================================
        3. CUSTOM HEART CURSOR
        ========================================================================== */
     #cursor-heart {
@@ -230,11 +252,7 @@
     .hero-title .letter { display: inline-block; opacity: 0; transform: translateY(80px) scale(0.5); will-change: transform, opacity; }
     .hero-title .letter.animated { animation: letterSpring 0.9s var(--transition-bounce) forwards; animation-delay: calc(var(--i) * 60ms); }
 
-    @keyframes letterSpring {
-      0% { opacity: 0; transform: translateY(80px) scale(0.5); }
-      70% { transform: translateY(-10px) scale(1.08); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
+    @keyframes letterSpring { 0% { opacity: 0; transform: translateY(80px) scale(0.5); } 70% { transform: translateY(-10px) scale(1.08); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
     .hero-subtitle { font-family: var(--font-script); font-size: clamp(2rem, 4.5vw, 3.5rem); color: var(--blush-pink); margin-bottom: 2rem; text-shadow: 0 0 20px rgba(201, 83, 111, 0.5); display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
     .hero-subtitle .word { opacity: 0; transform: translateY(20px); display: inline-block; }
@@ -318,10 +336,7 @@
     .gallery-label { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-primary); margin-bottom: 0.3rem; }
     .gallery-title { font-family: var(--font-script); font-size: 2.2rem; color: #ffffff; line-height: 1.1; text-shadow: 0 0 10px rgba(201, 83, 111, 0.5); }
 
-    /* Shuffle Glow Animation Class */
-    .shuffle-glow-anim {
-      animation: shuffleCardAnim 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
+    .shuffle-glow-anim { animation: shuffleCardAnim 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     @keyframes shuffleCardAnim {
       0% { opacity: 0.4; transform: scale(0.92); filter: brightness(1.5); }
       100% { opacity: 1; transform: scale(1); filter: brightness(1); }
@@ -474,6 +489,19 @@
       </linearGradient>
     </defs>
   </svg>
+
+  <!-- BACKGROUND AUDIO PLAYER -->
+  <audio id="bg-audio" src="./Tum%20Ho%20Toh%20Saiyaara%20320%20Kbps.mp3" loop preload="auto"></audio>
+
+  <!-- FLOATING MUSIC CONTROL BAR -->
+  <div class="music-player-bar">
+    <div class="disc-spin" id="music-disc">🎵</div>
+    <div class="music-info">
+      <span class="music-tag">OUR SONG 🎵</span>
+      <span class="music-title">Tum Ho Toh Saiyaara</span>
+    </div>
+    <button class="music-toggle-btn" id="music-btn" onclick="toggleBgMusic()">▶</button>
+  </div>
 
   <!-- 1. PRELOADER WITH THEATER VELVET CURTAINS & FLYING KISS BUTTON -->
   <div id="preloader">
@@ -1050,6 +1078,7 @@
     ];
 
     let currentSlotKey = null;
+    let isMusicPlaying = false;
     const photoStore = JSON.parse(localStorage.getItem('love_photos') || '{}');
     const customName = localStorage.getItem('gf_name') || 'Annanya ❤️';
 
@@ -1105,6 +1134,8 @@
       btn.style.pointerEvents = 'none';
       btn.style.opacity = '0.7';
 
+      startBgMusic();
+
       const rect = e.target.getBoundingClientRect();
       const startX = e.clientX || (rect.left + rect.width / 2);
       const startY = e.clientY || (rect.top + rect.height / 2);
@@ -1145,6 +1176,38 @@
       }, 1700);
     }
 
+    function startBgMusic() {
+      const audio = document.getElementById('bg-audio');
+      const disc = document.getElementById('music-disc');
+      const btn = document.getElementById('music-btn');
+      if (audio) {
+        audio.play().then(() => {
+          isMusicPlaying = true;
+          if (disc) disc.classList.add('playing');
+          if (btn) btn.innerText = '⏸';
+        }).catch(err => console.log('Autoplay policy', err));
+      }
+    }
+
+    function toggleBgMusic() {
+      const audio = document.getElementById('bg-audio');
+      const disc = document.getElementById('music-disc');
+      const btn = document.getElementById('music-btn');
+      if (!audio) return;
+
+      if (isMusicPlaying) {
+        audio.pause();
+        isMusicPlaying = false;
+        if (disc) disc.classList.remove('playing');
+        if (btn) btn.innerText = '▶';
+      } else {
+        audio.play();
+        isMusicPlaying = true;
+        if (disc) disc.classList.add('playing');
+        if (btn) btn.innerText = '⏸';
+      }
+    }
+
     function initClusterPhotos() {
       slotKeys.forEach((key, index) => {
         const imgUrl = photoStore[key] || (folderPath + localPhotos[index % localPhotos.length]);
@@ -1165,7 +1228,6 @@
       });
       localStorage.setItem('love_photos', JSON.stringify(photoStore));
 
-      // Trigger visual card animation glow for feedback
       document.querySelectorAll('.gallery-card').forEach(card => {
         card.classList.remove('shuffle-glow-anim');
         void card.offsetWidth;
