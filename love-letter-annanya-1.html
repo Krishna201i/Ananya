@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Annanya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Mukta:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-1: #2a0f2e;
+    --night-2: #7a2452;
+    --night-3: #c9536f;
+    --gold: #f0a63c;
+    --gold-soft: #ffd9a0;
+    --blush: #ffc2d1;
+    --paper: #faf1e2;
+    --paper-2: #f2e6cf;
+    --ink: #3c2f24;
+    --ink-soft: #6b5847;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background: radial-gradient(130% 90% at 50% -12%, var(--night-3) 0%, var(--night-2) 42%, var(--night-1) 78%, #1c0a1e 100%);
+    font-family: 'Mukta', sans-serif;
+    color: var(--paper);
+    overflow-x: hidden;
+  }
+
+  .sky {
+    position: relative;
+    padding: 56px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* scattered stars */
+  .stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--gold-soft);
+    border-radius: 50%;
+    opacity: .55;
+    animation: twinkle 4.5s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: .2; transform: scale(1); }
+    50% { opacity: .85; transform: scale(1.4); }
+  }
+
+  /* moon + diya signature motif */
+  .motif {
+    position: relative;
+    width: 120px;
+    height: 150px;
+    margin-bottom: 6px;
+    z-index: 2;
+  }
+  .moon-glow {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,182,110,0.45) 0%, rgba(255,182,110,0) 70%);
+  }
+  .moon {
+    position: absolute;
+    top: 12px; left: 50%;
+    transform: translateX(-50%);
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: var(--gold-soft);
+    box-shadow: -14px 0 0 -2px var(--night-1) inset;
+  }
+  .thread {
+    position: absolute;
+    top: 58px; left: 50%;
+    width: 1px; height: 34px;
+    background: linear-gradient(var(--gold-soft), transparent);
+    opacity: .5;
+  }
+  .diya {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 34px;
+  }
+  .diya-base {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 64px; height: 18px;
+    background: linear-gradient(180deg, var(--gold) 0%, #b5741f 100%);
+    border-radius: 0 0 32px 32px / 0 0 22px 22px;
+  }
+  .diya-base::before{
+    content:'';
+    position:absolute;
+    top:-4px; left:50%;
+    transform: translateX(-50%);
+    width: 70px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .flame {
+    position: absolute;
+    bottom: 16px; left: 50%;
+    transform: translateX(-50%);
+    width: 12px; height: 20px;
+    background: radial-gradient(ellipse at 50% 80%, #fff3c4 0%, var(--gold) 45%, #d9660c 90%);
+    border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+    filter: drop-shadow(0 0 8px rgba(227,167,60,0.8));
+    animation: flicker 2.2s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+  @keyframes flicker {
+    0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1) rotate(0deg); }
+    25% { transform: translateX(-50%) scaleY(1.08) scaleX(0.94) rotate(-2deg); }
+    50% { transform: translateX(-50%) scaleY(0.94) scaleX(1.05) rotate(1deg); }
+    75% { transform: translateX(-50%) scaleY(1.05) scaleX(0.96) rotate(-1deg); }
+  }
+
+  .eyebrow {
+    z-index: 2;
+    font-size: 12.5px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin: 10px 0 8px;
+    text-align: center;
+  }
+
+  h1 {
+    z-index: 2;
+    font-family: 'Yatra One', cursive;
+    font-weight: 400;
+    font-size: clamp(30px, 8vw, 46px);
+    line-height: 1.15;
+    text-align: center;
+    margin: 0 0 4px;
+    background: linear-gradient(180deg, #fff6df 0%, var(--gold-soft) 65%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 0 8px;
+  }
+
+  .sub {
+    z-index: 2;
+    font-size: 14.5px;
+    color: var(--blush);
+    text-align: center;
+    margin: 0 0 34px;
+    font-style: italic;
+  }
+
+  /* letter card, styled as folded paper */
+  .letter-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    z-index: 2;
+  }
+  .paper-back-2 {
+    position: absolute;
+    inset: 10px -6px -10px 6px;
+    background: var(--paper-2);
+    border-radius: 6px;
+    transform: rotate(2.2deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,.35);
+  }
+  .paper-back-1 {
+    position: absolute;
+    inset: 6px -3px -6px 3px;
+    background: #f6e9d3;
+    border-radius: 6px;
+    transform: rotate(-1.1deg);
+    box-shadow: 0 16px 30px rgba(0,0,0,.3);
+  }
+  .letter {
+    position: relative;
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 6px;
+    padding: 40px 30px 34px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    transform: rotate(-0.6deg);
+  }
+  .letter::before {
+    content: '';
+    position: absolute;
+    top: 18px; left: 18px; right: 18px; bottom: 18px;
+    border: 1px solid rgba(60,47,36,0.14);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  .seal {
+    position: absolute;
+    top: -16px;
+    right: 26px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #d76a7f, #a83a52 70%);
+    box-shadow: 0 6px 14px rgba(0,0,0,.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transform: rotate(-8deg);
+  }
+
+  .salutation {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 6px 0 18px;
+    color: var(--ink);
+  }
+
+  .letter p {
+    font-size: 15.5px;
+    line-height: 1.85;
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+
+  .letter p:last-of-type { margin-bottom: 0; }
+
+  .closing {
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px dashed rgba(60,47,36,0.25);
+  }
+  .closing .line1 {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 0 2px;
+  }
+  .signature {
+    font-family: 'Caveat', cursive;
+    font-size: 34px;
+    font-weight: 600;
+    color: #7a2f3f;
+    margin: 2px 0 0;
+  }
+
+  .foot-note {
+    z-index: 2;
+    max-width: 520px;
+    text-align: center;
+    font-size: 12.5px;
+    color: rgba(250,241,226,0.55);
+    margin: 26px 0 6px;
+    padding: 0 16px;
+  }
+
+  @media (max-width: 380px) {
+    .letter { padding: 32px 20px 28px; }
+    .signature { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+  <div class="sky">
+    <div class="stars" id="stars"></div>
+
+    <div class="motif">
+      <div class="moon-glow"></div>
+      <div class="moon"></div>
+      <div class="thread"></div>
+      <div class="diya">
+        <div class="flame"></div>
+        <div class="diya-base"></div>
+      </div>
+    </div>
+
+    <div class="eyebrow">Mahashivratri · 15 February</div>
+    <h1>Happy Birthday,<br>Annanya</h1>
+    <div class="sub">ek diya jo us raat se aaj tak jalta hi raha hai</div>
+
+    <div class="letter-wrap">
+      <div class="paper-back-2"></div>
+      <div class="paper-back-1"></div>
+      <div class="letter">
+        <div class="seal">💌</div>
+        <p class="salutation">Meri pyaari Annanya,</p>
+
+        <p>Sabse pehle, Happy Birthday. Aaj ka din tumhare naam hai, aur main bas itna chahta hoon ki tumhe pata ho ki tum meri zindagi ke liye kitni khaas ho.</p>
+
+        <p>Mujhe wo din abhi bhi yaad hai jab pehli baar humari mulaqat hui thi. Lekin jo din mere dil mein hamesha ke liye chhap gaya, wo tha Mahashivratri ka, 15 February — jab maine finally himmat karke tumse apne dil ki baat keh di thi. Us pal se lekar aaj tak, sab kuch badal gaya, aur sach kahun toh, sabse acche tareeke se badla.</p>
+
+        <p>Mujhe wo hamari saari bike rides yaad aati hain — jab hum bas nikal jaate the, na koi manzil, na koi jaldi, sirf hum dono aur khula raasta. Wo tumhara achanak se mujhe hug kar lena, chhoti si baat lagti hai, but wo mere din ki sabse acchi cheez hoti hai. Aur haan, jab tum mujh pe bacho jaisa gussa karti ho meri harkaton ki wajah se, ya daant deti ho — mujhe wo bhi utna hi pyaara lagta hai, chahe main kabhi maanu na maanu.</p>
+
+        <p>Tum sirf meri girlfriend nahi ho, Annanya. Tum meri sabse acchi dost ho, meri shanti ho, aur meri sabse pyaari aadat ho.</p>
+
+        <p>Is birthday pe, main tumse bas itna kehna chahta hoon — thank you, meri zindagi ka hissa banne ke liye. I love you, aaj bhi, hamesha bhi.</p>
+
+        <div class="closing">
+          <p class="line1">Tumhara hamesha,</p>
+          <p class="signature">Krishna</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-note">jaise chaand ki roshni raat ko rasta dikhati hai, waise hi tum meri raahon ko roshan karti ho</div>
+  </div>
+
+  <script>
+    const container = document.getElementById('stars');
+    const positions = [
+      [8,10],[18,22],[30,6],[70,14],[85,26],[92,8],[12,36],[60,4],[45,18],[78,40],
+      [5,55],[95,55],[15,68],[88,70]
+    ];
+    positions.forEach(([x,y], i) => {
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = x + '%';
+      s.style.top = y + '%';
+      s.style.animationDelay = (i * 0.4) + 's';
+      container.appendChild(s);
+    });
+  </script>
+</body>
+</html>
