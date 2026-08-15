@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, Shuffle, Grid, Camera, Heart } from "lucide-react";
+import { Sparkles, Shuffle, Grid, Camera } from "lucide-react";
 
 interface HeroSectionProps {
   heroPhoto: string;
@@ -17,7 +17,7 @@ export default function HeroSection({
   onOpenVault,
 }: HeroSectionProps) {
   const titleText = "Happy Birthday, Annanya";
-  const subtitleText = "ek diya jo us raat se aaj tak jalta hi raha hai";
+  const subtitleText = "Ek diya... jo Mahashivratri ki us raat se, aaj tak mere dil mein jalta hi raha hai ✨";
 
   const letterVariants: any = {
     hidden: { opacity: 0, y: 80, scale: 0.5 },
@@ -41,7 +41,7 @@ export default function HeroSection({
       y: 0,
       transition: {
         duration: 0.8,
-        delay: 1.2 + i * 0.15,
+        delay: 1.2 + i * 0.1,
       },
     }),
   };
@@ -111,20 +111,27 @@ export default function HeroSection({
         ))}
       </h1>
 
-      {/* Subtitle */}
-      <p className="font-script text-2xl md:text-4xl lg:text-5xl text-[#ffc2d1] mb-8 drop-shadow-[0_0_20px_rgba(201,83,111,0.5)] flex flex-wrap justify-center gap-2 italic">
-        {subtitleText.split(" ").map((word, i) => (
-          <motion.span
-            key={i}
-            custom={i}
-            initial="hidden"
-            animate="visible"
-            variants={wordVariants}
-            className="inline-block"
-          >
-            {word}
-          </motion.span>
-        ))}
+      {/* Elegant Subtitle with High Legibility & Gold Highlights */}
+      <p className="font-serif italic text-xl md:text-3xl lg:text-4xl text-[#ffd9a0] mb-8 drop-shadow-[0_0_20px_rgba(240,166,60,0.35)] flex flex-wrap justify-center gap-x-2 gap-y-1 max-w-4xl mx-auto leading-relaxed px-4">
+        {subtitleText.split(" ").map((word, i) => {
+          const isHighlight = ["diya", "mahashivratri", "jalta"].includes(word.toLowerCase().replace(/[^a-z]/g, ""));
+          return (
+            <motion.span
+              key={i}
+              custom={i}
+              initial="hidden"
+              animate="visible"
+              variants={wordVariants}
+              className={`inline-block ${
+                isHighlight
+                  ? "text-[#f0a63c] font-script not-italic text-1.25em drop-shadow-[0_0_15px_rgba(240,166,60,0.6)] px-1"
+                  : "text-[#faf1e2]"
+              }`}
+            >
+              {word}
+            </motion.span>
+          );
+        })}
       </p>
 
       {/* Gold Self-Drawing Line */}
