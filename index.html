@@ -318,6 +318,15 @@
     .gallery-label { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-primary); margin-bottom: 0.3rem; }
     .gallery-title { font-family: var(--font-script); font-size: 2.2rem; color: #ffffff; line-height: 1.1; text-shadow: 0 0 10px rgba(201, 83, 111, 0.5); }
 
+    /* Shuffle Glow Animation Class */
+    .shuffle-glow-anim {
+      animation: shuffleCardAnim 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes shuffleCardAnim {
+      0% { opacity: 0.4; transform: scale(0.92); filter: brightness(1.5); }
+      100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+    }
+
     /* ==========================================================================
        9. SECTION 3: REASONS I LOVE YOU
        ========================================================================== */
@@ -597,7 +606,7 @@
       <h2 class="section-heading">Our <span class="script-accent">Romantic</span> Gallery</h2>
 
       <div class="action-toolbar">
-        <button class="tool-btn" onclick="shufflePhotoMemories()">🔀 Shuffle Photos</button>
+        <button class="tool-btn" onclick="shufflePhotoMemories()">🔀 Shuffle Gallery Photos</button>
         <button class="tool-btn" onclick="openVaultModal()">📸 Open Memory Vault</button>
       </div>
 
@@ -1144,13 +1153,24 @@
     }
 
     function shufflePhotoMemories() {
-      const shuffled = [...localPhotos].sort(() => 0.5 - Math.random());
+      const shuffled = [...localPhotos];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
       slotKeys.forEach((key, index) => {
         const imgUrl = folderPath + shuffled[index];
         photoStore[key] = imgUrl;
         applyPhotoToSlot(key, imgUrl);
       });
       localStorage.setItem('love_photos', JSON.stringify(photoStore));
+
+      // Trigger visual card animation glow for feedback
+      document.querySelectorAll('.gallery-card').forEach(card => {
+        card.classList.remove('shuffle-glow-anim');
+        void card.offsetWidth;
+        card.classList.add('shuffle-glow-anim');
+      });
     }
 
     /* --------------------------------------------------------------------------

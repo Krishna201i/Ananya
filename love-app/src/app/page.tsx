@@ -48,12 +48,16 @@ export default function Home() {
   }, []);
 
   const savePhotoMap = (updated: Record<string, string>) => {
-    setPhotoMap(updated);
+    setPhotoMap({ ...updated });
     localStorage.setItem("love_photos", JSON.stringify(updated));
   };
 
   const handleShuffle = () => {
-    const shuffled = [...LOCAL_PHOTOS].sort(() => 0.5 - Math.random());
+    const shuffled = [...LOCAL_PHOTOS];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
     const updated: Record<string, string> = {};
     slotKeys.forEach((key, idx) => {
       updated[key] = getPhotoUrl(shuffled[idx]);
