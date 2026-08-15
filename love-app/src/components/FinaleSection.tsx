@@ -145,6 +145,8 @@ export default function FinaleSection({
                   <img
                     src={imgSrc}
                     alt={p.key}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover sepia-[0.2] saturate-[1.2]"
                   />
                 ) : (

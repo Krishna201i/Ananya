@@ -54,6 +54,8 @@ export default function HeroSection({
           <img
             src={heroPhoto}
             alt="Annanya Backdrop"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover opacity-35 blur-[1px] saturate-[0.85] transition-opacity duration-800"
           />
         ) : (
@@ -142,7 +144,7 @@ export default function HeroSection({
       >
         <button
           onClick={onShuffle}
-          className="flex items-center gap-2 bg-[#2a0f2e]/80 border border-[#f0a63c] text-[#ffd9a0] font-sans font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-[#c9536f] hover:border-[#c9536f] hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(240,166,60,0.35)] hover:shadow-[0_10px_25px_rgba(201,83,111,0.4)] hover:-translate-y-1"
+          className="flex items-center gap-2 bg-[#2a0f2e]/80 border border-[#f0a63c] text-[#ffd9a0] font-sans font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-[#c9536f] hover:border-[#c9536f] hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(240,166,60,0.35)] hover:shadow-[0_10px_25px_rgba(201,83,111,0.4)] hover:-translate-y-1 cursor-pointer"
         >
           <Shuffle className="w-4 h-4" />
           Shuffle Memories
@@ -150,7 +152,7 @@ export default function HeroSection({
 
         <button
           onClick={onOpenVault}
-          className="flex items-center gap-2 bg-[#2a0f2e]/80 border border-[#f0a63c] text-[#ffd9a0] font-sans font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-[#c9536f] hover:border-[#c9536f] hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(240,166,60,0.35)] hover:shadow-[0_10px_25px_rgba(201,83,111,0.4)] hover:-translate-y-1"
+          className="flex items-center gap-2 bg-[#2a0f2e]/80 border border-[#f0a63c] text-[#ffd9a0] font-sans font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-full hover:bg-[#c9536f] hover:border-[#c9536f] hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(240,166,60,0.35)] hover:shadow-[0_10px_25px_rgba(201,83,111,0.4)] hover:-translate-y-1 cursor-pointer"
         >
           <Grid className="w-4 h-4" />
           Annanya's Memory Vault (101 Photos)

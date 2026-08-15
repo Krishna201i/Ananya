@@ -67,12 +67,14 @@ export default function GallerySection({
                 stiffness: 150,
               }}
               onClick={() => onOpenUpload(card.key)}
-              className={`group relative rounded-3xl overflow-hidden cursor-pointer glass-card ${card.span} min-h-[300px] md:min-h-[auto]`}
+              className={`group relative rounded-3xl overflow-hidden cursor-pointer glass-card ${card.span} min-h-[300px] md:min-h-[auto] bg-[#1c0a1e]/60`}
             >
               {imgSrc ? (
                 <img
                   src={imgSrc}
                   alt={card.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                 />
               ) : (

@@ -59,7 +59,7 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
       <audio
         ref={audioRef}
         src="/song.mp3"
-        preload="auto"
+        preload="metadata"
         onEnded={handleEnded}
       />
 
