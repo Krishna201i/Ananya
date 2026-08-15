@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+:root {
+  --night-1: #1c0a1e;
+  --night-2: #2a0f2e;
+  --night-3: #7a2452;
+  --rose-blush: #c9536f;
+  --gold-primary: #f0a63c;
+  --gold-soft: #ffd9a0;
+  --blush-pink: #ffc2d1;
+  --paper: #faf1e2;
+  --paper-2: #f2e6cf;
+  --ink: #3c2f24;
+}
+
+@theme {
+  --font-sans: var(--font-sans), sans-serif;
+  --font-serif: var(--font-serif), Georgia, serif;
+  --font-script: var(--font-script), cursive;
+  --font-caveat: var(--font-caveat), cursive;
+  --font-yatra: var(--font-yatra), cursive;
+  --color-dark: #1c0a1e;
+  --color-rose: #c9536f;
+  --color-gold: #f0a63c;
+  --color-gold-soft: #ffd9a0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1c0a1e;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9536f;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f0a63c;
+}
+
+/* Preloader Heartbeat */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.18); }
+  28% { transform: scale(1.04); }
+  42% { transform: scale(1.28); }
+  70% { transform: scale(1); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.2s infinite ease-in-out;
+}
+
+/* Flame Flicker */
+@keyframes flameFlicker {
+  0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1) rotate(0deg); }
+  25% { transform: translateX(-50%) scaleY(1.08) scaleX(0.94) rotate(-2deg); }
+  50% { transform: translateX(-50%) scaleY(0.94) scaleX(1.05) rotate(1deg); }
+  75% { transform: translateX(-50%) scaleY(1.05) scaleX(0.96) rotate(-1deg); }
+}
+
+.animate-flame {
+  animation: flameFlicker 2.2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* Gold Sweep */
+@keyframes goldSweep {
+  0% { background-position: -100% 0; }
+  100% { background-position: 100% 0; }
+}
+
+.animate-gold-sweep {
+  background: linear-gradient(90deg, transparent 0%, #f0a63c 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: goldSweep 3s infinite linear;
+}
+
+/* Floating Rose Petals */
+.floating-petal {
+  position: absolute;
+  top: -50px;
+  background: radial-gradient(circle, #ffc2d1 0%, #c9536f 70%, #7a2452 100%);
+  border-radius: 50% 0 50% 50%;
+  opacity: 0.75;
+  pointer-events: none;
+  will-change: transform;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+  animation: floatPetal linear forwards;
+}
+
+@keyframes floatPetal {
+  0% {
+    transform: translateY(0) rotate(0deg) rotateY(0deg) translateX(0);
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) rotateY(180deg) translateX(var(--drift));
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg) rotateY(360deg) translateX(calc(var(--drift) * -0.5));
+  }
+}
+
+/* Floating Rising Hearts */
+.floating-heart {
+  position: absolute;
+  bottom: -60px;
+  font-size: var(--size);
+  pointer-events: none;
+  will-change: transform;
+  opacity: var(--opacity);
+  filter: drop-shadow(0 0 10px rgba(240, 166, 60, 0.5));
+  animation: riseHeart linear forwards;
+}
+
+@keyframes riseHeart {
+  0% {
+    transform: translateY(0) scale(0.8) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-50vh) scale(1.1) rotate(var(--spin));
+  }
+  100% {
+    transform: translateY(-110vh) scale(1) rotate(calc(var(--spin) * 2));
+  }
+}
+
+/* Sparkles on Cursor */
+.cursor-sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9997;
+  font-size: 12px;
+  color: #ffd9a0;
+  animation: fadeSparkle 0.6s forwards ease-out;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes fadeSparkle {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.2) rotate(180deg);
+  }
+}
+
+/* Glassmorphic card utility with warm midnight theme */
+.glass-card {
+  background: rgba(42, 15, 46, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(240, 166, 60, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(201, 83, 111, 0.6);
+  box-shadow: 0 25px 50px rgba(201, 83, 111, 0.3), inset 0 1px 2px rgba(240, 166, 60, 0.4);
+}
