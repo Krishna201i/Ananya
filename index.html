@@ -1181,6 +1181,11 @@
       const disc = document.getElementById('music-disc');
       const btn = document.getElementById('music-btn');
       if (audio) {
+        audio.currentTime = 26;
+        audio.onended = () => {
+          audio.currentTime = 26;
+          audio.play();
+        };
         audio.play().then(() => {
           isMusicPlaying = true;
           if (disc) disc.classList.add('playing');
@@ -1201,6 +1206,9 @@
         if (disc) disc.classList.remove('playing');
         if (btn) btn.innerText = '▶';
       } else {
+        if (audio.currentTime < 26) {
+          audio.currentTime = 26;
+        }
         audio.play();
         isMusicPlaying = true;
         if (disc) disc.classList.add('playing');

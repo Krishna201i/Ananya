@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Music, Volume2, VolumeX, Play, Pause, Disc } from "lucide-react";
+import { motion } from "framer-motion";
+import { Volume2, VolumeX, Play, Pause, Disc } from "lucide-react";
 
 interface AudioPlayerProps {
   autoPlayTrigger: boolean;
@@ -12,11 +12,12 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [volume, setVolume] = useState(0.8);
-  const [showPlayer, setShowPlayer] = useState(true);
+
+  const START_TIME = 26; // Start song at 0:26
 
   useEffect(() => {
     if (autoPlayTrigger && audioRef.current && !isPlaying) {
+      audioRef.current.currentTime = START_TIME;
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch((err) => {
@@ -31,6 +32,9 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
+      if (audioRef.current.currentTime < START_TIME) {
+        audioRef.current.currentTime = START_TIME;
+      }
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch((err) => console.log(err));
@@ -43,13 +47,10 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
     setIsMuted(!isMuted);
   };
 
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = parseFloat(e.target.value);
-    setVolume(val);
+  const handleEnded = () => {
     if (audioRef.current) {
-      audioRef.current.volume = val;
-      if (val === 0) setIsMuted(true);
-      else setIsMuted(false);
+      audioRef.current.currentTime = START_TIME;
+      audioRef.current.play();
     }
   };
 
@@ -58,8 +59,8 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
       <audio
         ref={audioRef}
         src="/song.mp3"
-        loop
         preload="auto"
+        onEnded={handleEnded}
       />
 
       <div className="fixed bottom-6 right-6 z-[99980]">
@@ -83,7 +84,7 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
             {/* Song Details */}
             <div className="flex flex-col text-left max-w-[140px] sm:max-w-[180px]">
               <span className="font-sans text-[10px] tracking-widest text-[#ffd9a0] uppercase font-semibold">
-                OUR SONG 🎵
+                OUR SONG (0:26) 🎵
               </span>
               <span className="font-serif italic text-sm text-[#faf1e2] truncate">
                 Tum Ho Toh Saiyaara
